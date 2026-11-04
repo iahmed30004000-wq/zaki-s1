@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>سيستم 1</title>
+<style>
+  body{width:340px;margin:0;padding:12px;font:14px system-ui,Segoe UI,Tahoma,sans-serif;color:#111}
+  h1{font-size:16px;margin:0 0 8px}
+  .row{display:flex;gap:6px;align-items:center;margin:6px 0}
+  .tag{padding:2px 8px;border-radius:999px;font-size:12px;background:#e5e7eb}
+  .tag.ok{background:#dcfce7;color:#166534}.tag.stop{background:#fee2e2;color:#991b1b}.tag.pause{background:#fef3c7;color:#92400e}
+  .bar{padding:8px;border-radius:8px;margin:6px 0;background:#fee2e2;color:#991b1b}.bar.info{background:#dbeafe;color:#1e40af}
+  textarea{width:100%;box-sizing:border-box;height:90px;direction:ltr;font:12px monospace}
+  button{cursor:pointer;border:0;border-radius:8px;padding:7px 12px;background:#4f46e5;color:#fff;font:inherit}
+  button.sec{background:#e5e7eb;color:#111}
+  .muted{color:#6b7280;font-size:12px}
+  progress{width:100%}
+</style>
+</head>
+<body>
+  <h1>سيستم 1 — الإضافة</h1>
+  <div id="bars"></div>
+  <div class="row"><span id="state" class="tag">...</span><span id="today" class="muted"></span></div>
+  <div id="queueBox" hidden>
+    <progress id="prog" max="1" value="0"></progress>
+    <div class="muted" id="qtext"></div>
+    <div class="row"><button id="pause" class="sec">إيقاف مؤقت</button><button id="resume">استئناف</button><button id="cancel" class="sec">إلغاء القائمة</button></div>
+  </div>
+  <details open>
+    <summary>وضع القائمة</summary>
+    <p class="muted">الصق روابط من المواقع المدعومة بس (رابط بكل سطر). بتنفتح بتبويب واحد، بين 45 و90 ثانية، وبحد 40 بالساعة و200 باليوم.</p>
+    <textarea id="urls" placeholder="https://www.aliexpress.com/item/..."></textarea>
+    <div class="muted" id="estimate"></div>
+    <div class="row"><button id="start">ابدأ</button></div>
+  </details>
+  <div class="row"><button class="sec" id="open">افتح النظام</button><button class="sec" id="opts">الخيارات</button></div>
+  <script src="../lib/core.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

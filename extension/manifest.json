@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "سيستم 1 — التقاط المرشحين",
+  "short_name": "سيستم 1",
+  "description": "بتحفظ صفحات المنتجات ومكتبة الإعلانات كمرشحين بسرعة إنسان، من المواقع المدعومة بس، وبتوقف عند أي تحقق.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "114",
+  "permissions": ["storage", "alarms", "scripting"],
+  "host_permissions": ["https://*.aliexpress.com/*", "https://*.aliexpress.us/*", "https://www.facebook.com/ads/library/*", "https://facebook.com/ads/library/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://*.aliexpress.com/*", "https://*.aliexpress.us/*", "https://www.facebook.com/ads/library/*", "https://facebook.com/ads/library/*"],
+      "js": ["lib/core.js", "lib/adapters.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": { "default_popup": "popup/popup.html", "default_title": "سيستم 1" },
+  "options_page": "options/options.html"
+}

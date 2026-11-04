@@ -1,0 +1,21 @@
+{
+  "site": "aliexpress",
+  "version": 1,
+  "verified": false,
+  "note": "محددات افتراضية بأنماط معروفة، لسا ما انجرّبت على الموقع الحقيقي: حدّثها من شاشة الإضافة بالنظام بدون إعادة تثبيت.",
+  "match": ["https://*.aliexpress.com/item/*", "https://*.aliexpress.com/*/item/*", "https://*.aliexpress.us/item/*"],
+  "fields": {
+    "title": { "css": "h1[data-pl='product-title'], h1", "read": "text" },
+    "price": { "css": "[class*='price--current'], [class*='price-default--current'], [data-role='price']", "read": "text", "parse": "money" },
+    "sales": { "css": "[class*='reviewer--sold'], [class*='sold'], [data-role='sold']", "read": "text", "parse": "int" },
+    "reviews": { "css": "[class*='reviewer--reviews'], [class*='review-count']", "read": "text", "parse": "int" },
+    "rating": { "css": "[class*='reviewer--rating'], [class*='overview-rating-average']", "read": "text", "parse": "float" },
+    "imageUrl": { "css": "[class*='image-view'] img, [class*='slider--img'] img, [data-role='gallery'] img", "read": "src" }
+  },
+  "required": ["title", "price"],
+  "stop": {
+    "css": ["iframe[src*='captcha']", "#nc_1_wrapper", "[class*='baxia']", "iframe[src*='punish']"],
+    "text": ["captcha", "slide to verify", "verify you are human", "unusual traffic"],
+    "url": ["login.aliexpress", "passport.aliexpress", "/punish", "captcha"]
+  }
+}

@@ -21,6 +21,7 @@ export type PresetId = keyof typeof SOURCE_PRESETS;
 export interface DraftEx extends Draft {
   titleAr?: string | null;
   sourceNote?: string | null;
+  adCountries?: string[] | null;
 }
 
 export interface IngestContext {
@@ -88,6 +89,7 @@ export async function ingestDrafts(db: PrismaClient, drafts: DraftEx[], ctx: Ing
         listingAgeDays: d.listingAgeDays,
         adStartDate: d.adStartDate ? new Date(`${d.adStartDate}T00:00:00Z`) : null,
         adVersions: d.adVersions,
+        adCountries: d.adCountries?.length ? (d.adCountries as never) : Prisma.JsonNull,
         advertisersInMarket: d.advertisersInMarket,
         creators: d.creators,
         newCreators7d: d.newCreators7d,

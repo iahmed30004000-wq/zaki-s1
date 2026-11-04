@@ -14,6 +14,13 @@ const PUBLIC = new Set([
   "src/app/api/s1/v1/products/[ref]/compliance/route.ts",
   "src/app/api/s1/v1/candidates/route.ts",
   "src/app/api/s1/v1/events/route.ts",
+  // الإضافة: محمية بتوكن الجهاز (الخادم بيحفظ بصمته بس)
+  "src/app/api/extension/captures/route.ts",
+  "src/app/api/extension/selectors/route.ts",
+  "src/app/api/extension/lexicon/route.ts",
+  "src/app/api/extension/version/route.ts",
+  "src/app/api/extension/ping/route.ts",
+  "src/app/api/extension/events/route.ts",
   // ويبهوك تيليجرام: سر الهيدر (secret_token) + chat id المالك
   "src/app/api/telegram/webhook/route.ts",
 ]);

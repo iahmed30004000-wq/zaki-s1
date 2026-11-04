@@ -1,0 +1,28 @@
+{
+  "site": "meta_adlib",
+  "version": 1,
+  "verified": false,
+  "note": "مكتبة إعلانات ميتا بتغيّر أسماء الأصناف باستمرار، فالتاريخ وعدد النسخ والدول بتنقرأ من نص البطاقة بالتعابير. حدّث محدد البطاقة (item) من شاشة الإضافة إذا وقف.",
+  "match": ["https://www.facebook.com/ads/library/*", "https://facebook.com/ads/library/*"],
+  "fields": {
+    "title": { "css": "[data-s1='ad-text'], div[style*='white-space: pre-wrap']", "read": "text" },
+    "page": { "css": "a[href*='facebook.com/'][role='link'] span, a[href*='/ads/library/?view_all_page_id'] span", "read": "text" },
+    "imageUrl": { "css": "img[src*='scontent']", "read": "src" }
+  },
+  "required": ["title"],
+  "list": {
+    "item": "[data-s1='ad-card'], div[class*='xh8yej3'][class*='x1n2onr6']",
+    "max": 20,
+    "fields": {
+      "title": { "css": "[data-s1='ad-text'], div[style*='white-space: pre-wrap']", "read": "text" },
+      "page": { "css": "a[role='link'] span", "read": "text" },
+      "imageUrl": { "css": "img[src*='scontent']", "read": "src" }
+    },
+    "required": ["title"]
+  },
+  "stop": {
+    "css": ["iframe[src*='captcha']", "form[action*='checkpoint']"],
+    "text": ["confirm you're human", "security check", "log in to continue", "you're temporarily blocked"],
+    "url": ["checkpoint", "/login", "recover"]
+  }
+}

@@ -5,7 +5,7 @@ import { sinks } from "@/lib/hooks";
 import { openButton } from "./keyboards";
 import { sendToOwner, type Deps } from "./client";
 
-const TELEGRAM_TYPES = new Set(["budget", "license_expiring", "batch_no_certificate", "complaints_spike", "trend_ready", "underperforming", "outbound_dead"]);
+const TELEGRAM_TYPES = new Set(["budget", "license_expiring", "batch_no_certificate", "complaints_spike", "trend_ready", "underperforming", "outbound_dead", "extension_stopped"]);
 
 // أي نوع بيفتح شاشته: «افتح الوكلاء» لتوقف الوكيل مثلاً
 const TARGET: Record<string, { label: string; path: string }> = {
@@ -13,6 +13,7 @@ const TARGET: Record<string, { label: string; path: string }> = {
   license_expiring: { label: "افتح التراخيص", path: "/licenses" },
   batch_no_certificate: { label: "افتح الدفعات", path: "/batches" },
   outbound_dead: { label: "افتح الربط", path: "/integrations" },
+  extension_stopped: { label: "افتح الإضافة", path: "/extension" },
 };
 
 export const shouldNotifyTelegram = (a: Pick<AlertEntry, "type" | "severity">) => a.severity === "critical" || TELEGRAM_TYPES.has(a.type);

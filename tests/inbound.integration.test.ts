@@ -117,8 +117,8 @@ describe.skipIf(!has)("استقبال الأحداث وقراءة الأنظمة
   });
 
   it("الحد: 20 حدث بالثانية، وبعدها 429 مع Retry-After", async () => {
-    const results = [];
-    for (let i = 0; i < 22; i++) results.push(await receiveEvent(db(), "production", signed(event("brief.accepted"), NOW), env, NOW));
+    // بنفس اللحظة (مش واحد ورا واحد): تحت ضغط الاختبارات الموازية الحلقة التسلسلية بتتعدّى الثانية وما بتوصل الحد
+    const results = await Promise.all(Array.from({ length: 30 }, () => receiveEvent(db(), "production", signed(event("brief.accepted"), NOW), env, NOW)));
     expect(results.filter((r) => r.status === 429).length).toBeGreaterThanOrEqual(1);
     expect(results.find((r) => r.status === 429)?.headers?.["retry-after"]).toBeTruthy();
   });
@@ -135,8 +135,9 @@ describe.skipIf(!has)("استقبال الأحداث وقراءة الأنظمة
       const v = (await buildCompliance(db(), pf.id))!;
       expect(validateShape(COMPLIANCE_RESPONSE, v)).toEqual([]);
       expect(v).toMatchObject({ product_ref: pf.id, classification: "needs_review", verdict: "needs_specialist", allowed_claims: [], references: [] });
-      expect(v.banned_claims.length).toBe(16);
-      expect(v.ad_rules.length).toBe(10);
+      // اختبارات الامتثال بتضيف قواعد مؤقتة (بادئتها cmp) بنفس القاعدة وبنفس الوقت: بنعدّ المبذور بس
+      expect(v.banned_claims.filter((p) => !p.startsWith("cmp")).length).toBe(16);
+      expect(v.ad_rules.filter((r) => !r.startsWith("cmp")).length).toBe(10);
     });
 
     it("منتج بفحص: بيطلع التصنيف والحكم والادعاءات المسموحة، والنصوص المعتمدة بس", async () => {

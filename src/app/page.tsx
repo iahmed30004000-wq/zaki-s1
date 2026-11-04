@@ -18,6 +18,7 @@ export default async function HomePage() {
         {can(user.role, "dashboard.view") && <Link href="/alerts">التنبيهات</Link>}
         {can(user.role, "dashboard.view") && <Link href="/sources">المصادر</Link>}
         {can(user.role, "capture.create") && <Link href="/imports">الاستيراد</Link>}
+        {can(user.role, "capture.create") && <Link href="/extension">الإضافة</Link>}
         {can(user.role, "dashboard.view") && <Link href="/dna">الحمض</Link>}
         {can(user.role, "dashboard.view") && <Link href="/calc">الحاسبة</Link>}
         {can(user.role, "settings.manage") && <Link href="/settings">الإعدادات</Link>}
